@@ -28,7 +28,7 @@ jobs:
           cp testDirectory/Practice2Test.java "app/src/test/java/$UPATH/UserTest.java"
           ls
           cd "app/src/test/java/$UPATH"
-          UPATH=$(echo $UPATH | sed 's_/_.g')
+          UPATH=$(echo $UPATH | sed 's_/_._g')
           echo $UPATH
           sed -i "s_sg.*[;]_$UPATH;_" Practice2Test.java
           head -1 Practice2Test.java
