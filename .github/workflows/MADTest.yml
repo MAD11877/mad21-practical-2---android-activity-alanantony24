@@ -14,18 +14,25 @@ jobs:
       - name: Checkout Test Scripts
         uses: actions/checkout@v2
         with:
-          repository: lowkh/MAD_JunitPrac2
+          repository: westwq/MAD_JunitPrac2
+          ref: Pract2
           path: testDirectory
       - name: Check files
         run: |
             ls
       - name: Create Test Files
         run: |
+          UPATH=$(find . -path \*app/src/main/java/*/*.java | head -n 1 | sed 's_/[a-zA-Z0-9$]*[.]java__' | sed 's_./app/src/main/java/__' )
+          echo $UPATH
           cp app/src/main/res/layout/activity_main.xml testDirectory/test.xml
-          cp testDirectory/Practice2Test.java app/src/test/java/sg/edu/np/mad/madpractical/UserTest.java
+          cp testDirectory/Practice2Test.java "app/src/test/java/$UPATH/UserTest.java"
           ls
-          cd app/src/test/java/sg/edu/np/mad/madpractical
+          cd "app/src/test/java/$UPATH"
           ls
+          UPATH=$(echo $UPATH | sed 's_/_._g')
+          echo $UPATH
+          sed -i "s_sg.*[;]_$UPATH;_" UserTest.java
+          head -1 UserTest.java
           cd \
       - name: Setup go
         uses: actions/setup-go@v2
