@@ -11,18 +11,17 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    User user = new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        User user = new User();
         String name = user.name;
         String description = user.description;
     }
     public void FollowToggler(View view) {
-        User user = new User();
         Button followBtn = findViewById(R.id.followBtn);
-        if(followBtn.getText() == "Follow"){
+        if(followBtn.getText().toString().compareTo("Follow") == 0){
             followBtn.setText("Unfollow");
             user.followed = true;
         }
