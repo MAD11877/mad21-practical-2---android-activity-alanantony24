@@ -11,23 +11,73 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    User user = new User();
+    User u;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String name = user.name;
-        String description = user.description;
+        Log.d("Debug", "create");
+
+        u = new User();
+        u.name = "MAD";
+        u.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+        u.id = 1;
+        u.followed = false;
+
+        TextView name = findViewById(R.id.helloWorld);
+        name.setText(u.name);
+        TextView description = findViewById(R.id.loremIpsum);
+        description.setText(u.description);
+        setFollowBtn();
     }
-    public void FollowToggler(View view) {
-        Button followBtn = findViewById(R.id.followBtn);
-        if(followBtn.getText().toString().compareTo("Follow") == 0){
-            followBtn.setText("Unfollow");
-            user.followed = true;
+
+    private void setFollowBtn() {
+        Button b = findViewById(R.id.followBtn);
+        if(u.followed) {
+            b.setText("Unfollow");
         }
-        else{
-            followBtn.setText("Follow");
-            user.followed = false;
+        else {
+            b.setText("Follow");
         }
+    }
+    public void onFollowClick(View v) {
+        u.followed = !u.followed;
+        setFollowBtn();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("Debug", "start");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("Debug", "stop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Debug", "destroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("Debug", "pause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Debug", "resume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("Debug", "restart");
     }
 }
